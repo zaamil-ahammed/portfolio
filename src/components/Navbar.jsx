@@ -3,103 +3,150 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 30);
+      const sections = ['home', 'services', 'projects', 'about', 'archive', 'connect'];
+      const scrollPosition = window.scrollY + 200;
+
+      for (const sectionId of sections) {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          const top = el.offsetTop;
+          const height = el.offsetHeight;
+          if (scrollPosition >= top && scrollPosition < top + height) {
+            setActiveSection(sectionId);
+            break;
+          }
+        }
+      }
     };
-    window.addEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'About Me', href: '#about' },
+    { name: 'Home', href: '#home', id: 'home' },
+    { name: 'Services', href: '#services', id: 'services' },
+    { name: 'Projects', href: '#projects', id: 'projects' },
+    { name: 'About', href: '#about', id: 'about' },
+    { name: 'Archive', href: '#archive', id: 'archive' },
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-[#09090b]/90 backdrop-blur-md border-b border-white/[0.08] py-4'
-          : 'bg-transparent py-6 sm:py-8'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-6 sm:px-12 flex items-center justify-between">
-        {/* Brand */}
-        <a href="#home" className="flex items-center gap-3 group">
-          <div className="w-8 h-8 rounded-lg bg-neutral-900 border border-white/10 p-1 flex items-center justify-center">
-            <img src="/logo-white.png" alt="42RGB Logo" className="w-full h-full object-contain" />
-          </div>
-          <span className="font-bold text-lg tracking-tight text-white group-hover:text-[#9ba4e6] transition-colors">
-            {portfolioData.personal.name}
-          </span>
-        </a>
-
-        {/* Desktop Nav Items */}
-        <nav className="hidden md:flex items-center gap-10">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="text-sm font-medium tracking-wide text-neutral-300 hover:text-white transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* Let's Connect Button */}
-        <div className="hidden md:flex items-center">
+    <>
+      {/* Floating Centered Glass Pill Navbar */}
+      <header className="fixed top-5 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <div className="pointer-events-auto max-w-4xl w-full flex items-center justify-between px-4 sm:px-6 py-2.5 rounded-full glass-pill shadow-[0_10px_35px_-5px_rgba(0,0,0,0.7)] transition-all duration-300">
+          
+          {/* Brand Logo & Name */}
           <a
-            href="#connect"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#09090b] hover:bg-neutral-200 font-semibold text-xs tracking-wide transition-all shadow-sm"
+            href="#home"
+            className="flex items-center gap-2.5 group shrink-0"
+            aria-label="Ahmed Shamil Home"
           >
-            <span>Let's Connect</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </a>
-        </div>
-
-        {/* Mobile menu trigger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 text-neutral-300 hover:text-white"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden px-6 pt-4 pb-8 bg-[#09090b]/98 border-b border-white/10 backdrop-blur-2xl">
-          <div className="flex flex-col gap-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="px-3 py-2 text-base font-medium text-neutral-200 hover:text-white rounded-lg hover:bg-white/[0.05]"
-              >
-                {link.name}
-              </a>
-            ))}
-            <div className="pt-3">
-              <a
-                href="#connect"
-                onClick={() => setMobileMenuOpen(false)}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-full bg-white text-[#09090b] font-semibold text-sm shadow-md"
-              >
-                <span>Let's Connect</span>
-                <ArrowUpRight className="w-4 h-4" />
-              </a>
+            <div className="w-7 h-7 rounded-full bg-neutral-900 border border-white/15 p-1 flex items-center justify-center group-hover:border-[#9ba4e6]/50 transition-colors">
+              <img
+                src="/logo-white.png"
+                alt="42RGB Logo"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
             </div>
+            <span className="font-bold text-sm tracking-tight text-white group-hover:text-[#b4bbf2] transition-colors whitespace-nowrap">
+              {portfolioData.personal.name}
+            </span>
+          </a>
+
+          {/* Center Navigation Links (Desktop) */}
+          <nav className="hidden md:flex items-center gap-6 text-xs font-medium tracking-wide">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.id;
+              return (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  className={`transition-colors whitespace-nowrap py-1 px-1 relative ${
+                    isActive
+                      ? 'text-white font-semibold'
+                      : 'text-neutral-400 hover:text-neutral-200'
+                  }`}
+                >
+                  {link.name}
+                  {isActive && (
+                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#9ba4e6]" />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Primary Action Button (Right) */}
+          <div className="flex items-center gap-2">
+            <a
+              href="#connect"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-white hover:bg-neutral-200 text-[#09090b] text-xs font-semibold tracking-wide transition-all shadow-sm hover:scale-[1.02] active:scale-[0.98] whitespace-nowrap"
+            >
+              <span>Let's Connect</span>
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-1.5 text-neutral-300 hover:text-white rounded-full hover:bg-white/[0.08] transition-colors"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
+
+        </div>
+      </header>
+
+      {/* Mobile Drawer Navigation */}
+      {mobileMenuOpen && (
+        <div className="fixed inset-0 z-40 bg-[#09090b]/90 backdrop-blur-2xl md:hidden pt-24 px-6 flex flex-col justify-between pb-12">
+          <div className="space-y-4">
+            <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-500 block">
+              Navigation
+            </span>
+            <div className="flex flex-col gap-2">
+              {navLinks.map((link) => (
+                <a
+                  key={link.id}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-2xl font-bold py-2 transition-colors ${
+                    activeSection === link.id ? 'text-[#9ba4e6]' : 'text-neutral-300 hover:text-white'
+                  }`}
+                >
+                  {link.name}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-white/[0.08] space-y-4">
+            <a
+              href="#connect"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-3.5 rounded-full bg-white text-[#09090b] font-semibold text-center text-sm flex items-center justify-center gap-2 shadow-lg"
+            >
+              <span>Let's Connect</span>
+              <ArrowUpRight className="w-4 h-4" />
+            </a>
+            <p className="text-center text-xs font-mono text-neutral-500">
+              {portfolioData.personal.brandUnit} • {portfolioData.personal.tagline}
+            </p>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, Maximize2, X } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Maximize2, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
-export default function ToolkitSection() {
+export default function ToolkitSection({ onSelectPoster }) {
   const [activeLightbox, setActiveLightbox] = useState(null);
 
   const posters = portfolioData.projects.filter((p) => p.type === 'poster');
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setActiveLightbox(null);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   return (
     <section id="archive" className="py-24 sm:py-36 border-t border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 space-y-20">
         
         {/* Section 5 & 6 Header from Prathamfolio: Visual Archive + Creative Toolkit */}
-        <div className="space-y-6">
+        <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#9ba4e6] block mb-2 font-medium">
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#9ba4e6] block mb-2 font-semibold">
                 Tools & Capabilities
               </span>
               <h2 className="text-4xl sm:text-6xl font-black tracking-tight text-white">
@@ -27,17 +35,17 @@ export default function ToolkitSection() {
             </span>
           </div>
 
-          {/* Pratham-Style Toolkit Horizontal Pill Grid with arrow_outward */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 pt-4">
+          {/* Pratham-Style Toolkit Horizontal Grid with arrow_outward */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
             {portfolioData.toolkit.map((tool, idx) => (
               <div
                 key={idx}
-                className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-[#121216]/80 hover:bg-neutral-900 border border-white/[0.06] hover:border-[#9ba4e6]/30 transition-all duration-200"
+                className="group flex items-center justify-between p-4 rounded-2xl bg-[#121216]/80 hover:bg-[#181820] border border-white/[0.07] hover:border-[#9ba4e6]/40 transition-all duration-200 shadow-sm cursor-default"
               >
                 <span className="text-xs sm:text-sm font-medium text-neutral-200 group-hover:text-white truncate">
                   {tool.name}
                 </span>
-                <span className="text-neutral-400 group-hover:text-[#9ba4e6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-xs font-mono">
+                <span className="text-neutral-500 group-hover:text-[#9ba4e6] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all text-sm font-mono">
                   ↗
                 </span>
               </div>
@@ -46,13 +54,13 @@ export default function ToolkitSection() {
         </div>
 
         {/* Poster Design Gallery Grid (Visual Archive Gallery) */}
-        <div className="space-y-6">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+        <div className="space-y-6 pt-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
               Selected Posters & Visual Arts
             </h3>
             <span className="text-xs font-mono text-neutral-400">
-              Click any poster to inspect
+              Click any poster to inspect in high-resolution
             </span>
           </div>
 
@@ -61,7 +69,7 @@ export default function ToolkitSection() {
               <div
                 key={poster.id}
                 onClick={() => setActiveLightbox(poster)}
-                className="group cursor-pointer rounded-3xl overflow-hidden bg-[#121216] border border-white/[0.07] hover:border-[#9ba4e6]/40 transition-all duration-300 card-lift flex flex-col justify-between"
+                className="group cursor-pointer rounded-[2rem] overflow-hidden bg-[#121216] border border-white/[0.08] hover:border-[#9ba4e6]/50 transition-all duration-300 card-lift flex flex-col justify-between shadow-lg"
               >
                 {/* Poster Image with Zoom Preview */}
                 <div className="relative aspect-[3/4] overflow-hidden bg-neutral-900">
@@ -70,8 +78,8 @@ export default function ToolkitSection() {
                     alt={poster.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-4">
-                    <span className="text-xs font-mono text-white flex items-center gap-1.5 bg-[#09090b]/90 px-3 py-1.5 rounded-xl border border-white/10 backdrop-blur-md">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#09090b]/85 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-between p-5">
+                    <span className="text-xs font-mono text-white flex items-center gap-2 bg-[#09090b]/90 px-3.5 py-2 rounded-full border border-white/10 backdrop-blur-md shadow-lg">
                       <Maximize2 className="w-3.5 h-3.5 text-[#9ba4e6]" />
                       Inspect High-Res
                     </span>
@@ -79,17 +87,17 @@ export default function ToolkitSection() {
                 </div>
 
                 {/* Poster Metadata */}
-                <div className="p-6 space-y-2">
+                <div className="p-6 space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-[#9ba4e6]">
+                    <span className="text-[11px] font-mono text-[#9ba4e6] font-semibold">
                       {poster.category}
                     </span>
-                    <span className="text-[11px] font-mono text-neutral-400">
-                      Authentic
+                    <span className="text-[11px] font-mono text-neutral-500">
+                      Print & Digital
                     </span>
                   </div>
 
-                  <h4 className="text-lg font-bold text-white group-hover:text-[#b4bbf2] transition-colors">
+                  <h4 className="text-lg font-bold text-white group-hover:text-[#b4bbf2] transition-colors leading-snug">
                     {poster.title}
                   </h4>
 
@@ -101,7 +109,7 @@ export default function ToolkitSection() {
                     {poster.tags.map((tag, idx) => (
                       <span
                         key={idx}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-neutral-400"
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-neutral-400 border border-white/[0.03]"
                       >
                         {tag}
                       </span>
@@ -135,20 +143,20 @@ export default function ToolkitSection() {
             </button>
 
             {/* Poster Enlarged */}
-            <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900 max-h-[80vh] flex items-center justify-center">
+            <div className="rounded-3xl overflow-hidden border border-white/10 shadow-2xl bg-neutral-900 max-h-[78vh] flex items-center justify-center">
               <img
                 src={activeLightbox.image}
                 alt={activeLightbox.title}
-                className="max-h-[80vh] w-auto object-contain"
+                className="max-h-[78vh] w-auto object-contain"
               />
             </div>
 
             {/* Details */}
-            <div className="mt-4 text-center">
-              <h4 className="text-base font-bold text-white">
+            <div className="mt-4 text-center space-y-1">
+              <h4 className="text-lg font-bold text-white">
                 {activeLightbox.title}
               </h4>
-              <p className="text-xs font-mono text-neutral-400 mt-1">
+              <p className="text-xs font-mono text-neutral-400">
                 {activeLightbox.description}
               </p>
             </div>

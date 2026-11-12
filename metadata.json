@@ -1,0 +1,8 @@
+{
+  "name": "Ahmed Shamil — Portfolio",
+  "description": "Portfolio of Ahmed Shamil. Building modern web experiences and minimal brand design.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
