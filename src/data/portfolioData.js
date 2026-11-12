@@ -1,0 +1,200 @@
+export const portfolioData = {
+  personal: {
+    greeting: "Hello, I'm",
+    name: "Ahmed Shamil",
+    brandUnit: "42RGB",
+    tagline: "Clarity over noise",
+    title: "I Create with Purpose. And Build with Precision.",
+    subtitle: "Tech enthusiast | Graphic designer | Photographer",
+    bio: "Combining design expertise with web development insight to deliver visually strong, technically sound digital experiences. I focus on clarity, consistency, and structure — ensuring every solution is both aesthetically refined and functionally intentional.",
+    status: "Available for projects & freelance",
+    statusAvailable: true,
+    location: "Kerala, India",
+    timezone: "IST (UTC+5:30)",
+    education: "BCA Honours — MES Keveeyam College, Valanchery",
+    university: "Calicut University",
+    portraitUrl: "/portrait.jpg",
+  },
+
+  contact: {
+    email: "zaamil.ahmed@gmail.com",
+    displayEmail: "zaamil.ahmed@gmail.com",
+    location: "Kerala, India",
+    workingHours: "10:00 AM – 10:00 PM IST",
+    responseTime: "Within 24 hours",
+  },
+
+  socials: [
+    {
+      id: "instagram",
+      name: "Instagram",
+      handle: "@zaamil.ahmed",
+      url: "https://instagram.com/zaamil.ahmed",
+    },
+    {
+      id: "github",
+      name: "GitHub",
+      handle: "github.com/shamil",
+      url: "https://github.com",
+    },
+    {
+      id: "linkedin",
+      name: "LinkedIn",
+      handle: "Ahammed Shamil",
+      url: "https://linkedin.com",
+    },
+  ],
+
+  services: [
+    {
+      id: "brand-design",
+      title: "Branding & Visual Design",
+      description: "Comprehensive visual branding, precision logo marks, and grid systems that communicate with absolute visual clarity. From posters to full identity kits.",
+      icon: "palette",
+    },
+    {
+      id: "web-dev",
+      title: "Web Design & Development",
+      description: "High-performance, accessible, and responsive web platforms built with clean code, modern component architecture, and mobile-first thinking.",
+      icon: "code",
+    },
+    {
+      id: "posters-graphics",
+      title: "Print & Social Media Design",
+      description: "High-retention event posters, cultural festival banners, and multi-slide social carousels designed to captivate audiences and drive engagement.",
+      icon: "image",
+    },
+  ],
+
+  toolkit: [
+    { name: "Adobe Photoshop", icon: "photoshop" },
+    { name: "Adobe Illustrator", icon: "illustrator" },
+    { name: "Google AI Studio", icon: "aistudio" },
+    { name: "Antigravity", icon: "antigravity" },
+    { name: "GitHub", icon: "github" },
+    { name: "Canva", icon: "canva" },
+    { name: "React", icon: "react" },
+    { name: "Tailwind CSS", icon: "tailwind" },
+    { name: "Figma", icon: "figma" },
+  ],
+
+  philosophy: [
+    {
+      title: "Clarity Over Clutter",
+      description: "Communicating strong ideas simply. No unnecessary decoration, no visual noise — just direct, impactful design that serves its purpose.",
+    },
+    {
+      title: "Purpose Over Decoration",
+      description: "Every creative choice has a reason. From font pairings to color palettes, nothing exists without strategic intent behind it.",
+    },
+    {
+      title: "Function Over Assumption",
+      description: "Understanding problems first, then building solutions. Research-driven, tested, and refined until it works exactly right.",
+    },
+  ],
+
+  approach: [
+    {
+      step: "Design",
+      description: "Understand the idea and the people it serves. Research context, constraints, and goals before touching any tool.",
+    },
+    {
+      step: "Define",
+      description: "Combine strategy and creativity. Map the architecture, set the grid, choose the type, and lock the visual direction.",
+    },
+    {
+      step: "Deliver",
+      description: "Turn vision into meticulous, detail-oriented work. Clean code, pixel-perfect layouts, and production-ready assets.",
+    },
+  ],
+
+  projects: [
+    {
+      id: "pailippuram",
+      title: "Pailippuram Community Directory",
+      category: "Web Application",
+      description: "A fast, privacy-respecting community directory platform connecting local volunteer donors, services, and residents.",
+      url: "https://pailippuram.vercel.app",
+      tags: ["React", "Tailwind CSS", "Vercel", "Community Platform"],
+      image: null,
+      type: "website",
+    },
+    {
+      id: "gateflick",
+      title: "GateFlick",
+      category: "Web Application",
+      description: "High-speed progressive web app built for rapid QR code ticket scanning and crowd verification at film festivals.",
+      url: "https://gateflick.vercel.app",
+      tags: ["TanStack Start", "React 19", "PWA", "QR Scanner"],
+      image: null,
+      type: "website",
+    },
+    {
+      id: "jwala-inauguration",
+      title: "Jwala Inauguration",
+      category: "Poster Design",
+      description: "Event announcement poster combining high-contrast typography and dramatic stage lighting aesthetic.",
+      image: "/projects/jwala-inauguration.png",
+      tags: ["Adobe Photoshop", "Event Identity"],
+      type: "poster",
+    },
+    {
+      id: "jwala-guest",
+      title: "Jwala Dignitary Creative",
+      category: "Poster Design",
+      description: "Guest of honor announcement creative crafted with bold layout alignment and metallic contrast.",
+      image: "/projects/jwala-guest.png",
+      tags: ["Adobe Photoshop", "Portrait Grading"],
+      type: "poster",
+    },
+    {
+      id: "caravan-carnival",
+      title: "Caravan Carnival",
+      category: "Poster Design",
+      description: "Vibrant festival visual design balancing dynamic movement with legible typographic hierarchy.",
+      image: "/projects/caravan-carnival.jpg",
+      tags: ["Adobe Illustrator", "Festival Branding"],
+      type: "poster",
+    },
+    {
+      id: "raagonam",
+      title: "Raagonam Celebration",
+      category: "Poster Design",
+      description: "Festive celebration poster exploring traditional cultural motifs through clean modern minimalism.",
+      image: "/projects/raagonam.jpg",
+      tags: ["Graphic Design", "Photoshop"],
+      type: "poster",
+    },
+    {
+      id: "haritha",
+      title: "Haritha 26-27",
+      category: "Poster Design",
+      description: "Organization identity poster highlighting elegance, green palettes, and disciplined layout structure.",
+      image: "/projects/haritha.jpg",
+      tags: ["Brand Identity", "Typography"],
+      type: "poster",
+    },
+    {
+      id: "victory",
+      title: "Victory 2026-27",
+      category: "Poster Design",
+      description: "Milestone celebration poster featuring golden contrast and energetic layout composition.",
+      image: "/projects/victory.jpg",
+      tags: ["Photoshop", "Event Poster"],
+      type: "poster",
+    },
+    {
+      id: "instagram-carousel",
+      title: "Instagram Carousel Series",
+      category: "Social Media",
+      description: "Multi-slide social carousel designed for continuous horizontal flow and maximum audience engagement.",
+      slides: [
+        "/projects/instagram corousal/1.jpg",
+        "/projects/instagram corousal/2.jpg",
+        "/projects/instagram corousal/3.jpg",
+      ],
+      tags: ["Instagram", "Social Media", "Canva"],
+      type: "carousel",
+    },
+  ],
+};
