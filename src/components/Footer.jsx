@@ -8,7 +8,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#09090b] pt-20 pb-16 px-6 sm:px-12 relative overflow-hidden">
+    <footer className="border-t border-white/[0.08] bg-[#09090b]/65 backdrop-blur-sm pt-20 pb-16 px-6 sm:px-12 relative overflow-hidden">
       
       {/* Massive Editorial Banner Headline (Section 11 from Prathamfolio) */}
       <div className="max-w-7xl mx-auto space-y-20">
