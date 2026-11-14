@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Mail, Send, Copy, Check, Clock, MapPin, Loader2, ArrowUpRight, Github, Linkedin, Instagram, Monitor } from 'lucide-react';
+import { Mail, Send, Copy, Check, Clock, MapPin, Loader2, ArrowUpRight, Github, Linkedin, Instagram } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function ConnectSection({ onCopyEmail, onFormSubmitted }) {
@@ -65,7 +65,7 @@ export default function ConnectSection({ onCopyEmail, onFormSubmitted }) {
     <section id="connect" className="py-24 sm:py-36 border-t border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 space-y-16">
         
-        {/* Massive Editorial CTA Heading (Pratham Style) */}
+        {/* Editorial CTA Heading */}
         <div className="space-y-5 max-w-4xl">
           <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#9ba4e6] block font-semibold">
             Initiate Contact
@@ -259,26 +259,6 @@ export default function ConnectSection({ onCopyEmail, onFormSubmitted }) {
             )}
           </div>
 
-        </div>
-
-        {/* Pratham's Signature Responsive Notice Banner (Section 10 from Dump) */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 p-6 sm:p-7 rounded-[2rem] bg-white/[0.02] border border-white/[0.06] shadow-sm">
-          <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 rounded-2xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-[#9ba4e6] shrink-0">
-              <Monitor className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-sm font-bold text-white block">
-                A Better View Awaits
-              </span>
-              <p className="text-xs font-mono text-neutral-400 mt-0.5">
-                This Portfolio is Designed for Larger Screens. For the Best experience, Please Visit on a Desktop or Laptop.
-              </p>
-            </div>
-          </div>
-          <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest shrink-0 px-3 py-1 rounded-full bg-white/[0.03] border border-white/5">
-            {portfolioData.personal.brandUnit} • Viewport Optimized
-          </span>
         </div>
 
       </div>

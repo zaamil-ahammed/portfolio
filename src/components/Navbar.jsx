@@ -71,16 +71,13 @@ export default function Navbar() {
                 <a
                   key={link.id}
                   href={link.href}
-                  className={`transition-colors whitespace-nowrap py-1 px-1 relative ${
+                  className={`transition-colors whitespace-nowrap py-1 px-1 ${
                     isActive
                       ? 'text-white font-semibold'
                       : 'text-neutral-400 hover:text-neutral-200'
                   }`}
                 >
                   {link.name}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#9ba4e6]" />
-                  )}
                 </a>
               );
             })}

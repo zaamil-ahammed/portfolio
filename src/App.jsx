@@ -1,95 +1,134 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar';
-import HeroSection from './components/HeroSection';
-import ServicesSection from './components/ServicesSection';
-import ProjectsSection from './components/ProjectsSection';
-import AboutSection from './components/AboutSection';
-import ToolkitSection from './components/ToolkitSection';
-import ConnectSection from './components/ConnectSection';
-import Footer from './components/Footer';
-import Toast from './components/Toast';
-import ProjectDetailModal from './components/ProjectDetailModal';
-import ShapeWaves from './components/ShapeWaves';
-import { portfolioData } from './data/portfolioData';
+import React, { useEffect, useState } from 'react';
+import { ArrowDown } from 'lucide-react';
+import ParticleText from './components/ParticleText';
+import TextPressure from './components/TextPressure';
 
 export default function App() {
-  const [toastMessage, setToastMessage] = useState('');
-  const [selectedProjectId, setSelectedProjectId] = useState(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
-  const showToast = (message) => {
-    setToastMessage(message);
-    setTimeout(() => setToastMessage(''), 3500);
-  };
+  useEffect(() => {
+    let rafId = 0;
 
-  const handleCopyEmail = (email) => {
-    navigator.clipboard.writeText(email);
-    showToast(`Copied ${email} to clipboard`);
-  };
+    const updateScroll = () => {
+      rafId = 0;
+      const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+      const nextProgress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+      setScrollProgress(nextProgress);
+    };
 
-  const handleSelectProject = (projectId) => {
-    setSelectedProjectId(projectId);
-  };
+    const handleScroll = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(updateScroll);
+      }
+    };
 
-  const selectedProject = portfolioData.projects.find((p) => p.id === selectedProjectId) || null;
+    updateScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, []);
+
+  const firstOpacity = Math.max(0, 1 - scrollProgress * 1.45);
+  const firstTranslateY = -scrollProgress * 45;
+
+  const secondOpacity = Math.min(1, Math.max(0, (scrollProgress - 0.12) / 0.65));
+  const secondTranslateY = (1 - scrollProgress) * 45;
+
+  const isSecondActive = scrollProgress >= 0.5;
+  const scrollHintOpacity = Math.max(0, 1 - scrollProgress * 6);
 
   return (
-    <div className="relative min-h-screen text-[#fafafa] font-sans antialiased selection:bg-[#9ba4e6]/30 selection:text-[#b4bbf2]">
-      {/* Fixed WebGPU ShapeWaves Background */}
-      <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-        <ShapeWaves
-          text="42RGB"
-          fontFamily='Geist, "Geist Sans", system-ui, sans-serif'
-          fontWeight={500}
-          textSize={0.6}
-          shapes="mixed"
-          cellSize={6}
-          dotSize={0.75}
-          color="#000000"
-          hoverColor="#7c3aed"
-          backgroundColor="#111111"
-          speed={1.3}
-          scale={1.05}
-          contrast={2.15}
-          brightness={0.18}
-          flow={0.6}
-          direction={350}
-          fade={0}
-          interactive={true}
-          splashRadius={52}
-          splashStrength={1.05}
-          glow={0.35}
-          intro={true}
-          introDuration={2}
-          paused={false}
-        />
+    <div className="relative min-h-[200vh] w-full bg-[#09090b] text-[#fafafa] font-sans antialiased selection:bg-[#9ba4e6]/30 selection:text-[#b4bbf2]">
+      <div className="sticky top-0 h-screen w-full overflow-hidden">
+        
+        {/* Layer 1: AHMED SHAMIL — ParticleText */}
+        <div
+          className={`absolute inset-0 w-full h-full will-change-transform ${
+            isSecondActive ? 'pointer-events-none' : 'pointer-events-auto'
+          }`}
+          style={{
+            opacity: firstOpacity,
+            transform: `translate3d(0, ${firstTranslateY}vh, 0)`,
+          }}
+        >
+          <ParticleText
+            text="AHMED SHAMIL"
+            particleSize={2}
+            density={4}
+            color="currentColor"
+            highlightColor="#a855f7"
+            highlightMode="motion"
+            shape="circle"
+            intro="scan"
+            scatter={180}
+            gatherDuration={1600}
+            stagger={420}
+            clickBurst
+            burstStrength={1}
+            pointerRepel={40}
+            repelRadius={120}
+            idleDrift={0.7}
+            trigger="hover"
+            fontSize="clamp(3rem, 12vw, 8rem)"
+            fontWeight={800}
+            fontFamily="inherit"
+            glow
+          />
+        </div>
+
+        {/* Layer 2: PORTFOLIO — TextPressure */}
+        <div
+          className={`absolute inset-0 w-full h-full flex items-center justify-center px-6 sm:px-12 will-change-transform ${
+            isSecondActive ? 'pointer-events-auto' : 'pointer-events-none'
+          }`}
+          style={{
+            opacity: secondOpacity,
+            transform: `translate3d(0, ${secondTranslateY}vh, 0)`,
+          }}
+        >
+          <div className="w-full max-w-6xl h-[200px] sm:h-[300px]">
+            <TextPressure
+              text="PORTFOLIO"
+              flex={true}
+              alpha={false}
+              stroke
+              width={true}
+              weight={true}
+              italic={false}
+              radius={0.3}
+              smoothing={0.5}
+              idle="none"
+              idleSpeed={1.4}
+              clickRipple={true}
+              strokeColor="#ffffff"
+              strokeWidth={3}
+              minFontSize={36}
+              scale
+            />
+          </div>
+        </div>
+
+        {/* Subtle Scroll Cue on First Screen */}
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
+          style={{
+            opacity: scrollHintOpacity,
+            pointerEvents: scrollHintOpacity > 0.05 ? 'auto' : 'none',
+          }}
+          aria-label="Scroll down to view portfolio text pressure animation"
+        >
+          <span>Scroll</span>
+          <ArrowDown className="w-4 h-4 animate-bounce" />
+        </button>
+
       </div>
-
-      {/* Floating Glass Pill Navbar */}
-      <Navbar />
-
-      <main className="relative z-10">
-        <HeroSection onCopyEmail={handleCopyEmail} />
-        <ServicesSection onSelectProject={handleSelectProject} />
-        <ProjectsSection onSelectProject={handleSelectProject} />
-        <AboutSection />
-        <ToolkitSection onSelectPoster={handleSelectProject} />
-        <ConnectSection onCopyEmail={handleCopyEmail} onFormSubmitted={showToast} />
-      </main>
-
-      <div className="relative z-10">
-        <Footer />
-      </div>
-
-      {/* Deep-Dive Case Study Modal */}
-      {selectedProject && (
-        <ProjectDetailModal
-          project={selectedProject}
-          onClose={() => setSelectedProjectId(null)}
-        />
-      )}
-
-      {/* Interactive Toast Notifications */}
-      <Toast message={toastMessage} onClose={() => setToastMessage('')} />
     </div>
   );
 }

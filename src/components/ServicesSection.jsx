@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowUpRight, Palette, Code, Image as ImageIcon, Share2 } from 'lucide-react';
-import { portfolioData } from '../data/portfolioData';
 
 export default function ServicesSection({ onSelectProject }) {
   const serviceCards = [
@@ -20,7 +19,6 @@ export default function ServicesSection({ onSelectProject }) {
       title: 'Web Designing & Development',
       description: 'High-speed, accessible web applications and community portals built with React, Vite, and responsive Tailwind CSS.',
       image: null,
-      websiteUrl: 'https://pailippuram.vercel.app',
       websiteName: 'pailippuram.vercel.app',
       tags: ['React', 'Tailwind CSS', 'Vercel'],
       icon: Code,
@@ -52,7 +50,7 @@ export default function ServicesSection({ onSelectProject }) {
     <section id="services" className="py-24 sm:py-36 border-t border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-12">
         
-        {/* Massive Editorial Heading (Pratham Style) */}
+        {/* Editorial Heading */}
         <div className="mb-16 sm:mb-20">
           <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#9ba4e6] block mb-3 font-semibold">
             Core Disciplines
@@ -63,7 +61,7 @@ export default function ServicesSection({ onSelectProject }) {
           </h2>
         </div>
 
-        {/* 4-Column Grid matching Prathamfolio */}
+        {/* 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7">
           {serviceCards.map((service) => (
             <div
@@ -99,8 +97,7 @@ export default function ServicesSection({ onSelectProject }) {
                 ) : (
                   <div className="rounded-2xl p-5 aspect-[4/3] bg-neutral-900/90 border border-white/5 flex flex-col justify-between relative overflow-hidden group-hover:border-[#9ba4e6]/30 transition-colors">
                     <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-wider">
                         Live Web App
                       </span>
                       <service.icon className="w-4 h-4 text-[#9ba4e6]" />
@@ -127,16 +124,9 @@ export default function ServicesSection({ onSelectProject }) {
                 </div>
               </div>
 
-              {/* Tags */}
-              <div className="pt-6 mt-6 border-t border-white/[0.05] flex flex-wrap gap-1.5">
-                {service.tags.map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="text-[10px] font-mono px-2.5 py-1 rounded-md bg-white/[0.03] text-neutral-400 border border-white/[0.04]"
-                  >
-                    {tag}
-                  </span>
-                ))}
+              {/* Clean Metadata Footer */}
+              <div className="pt-6 mt-6 border-t border-white/[0.05] text-[11px] font-mono text-neutral-500">
+                {service.tags.join(' · ')}
               </div>
             </div>
           ))}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { GraduationCap, Compass, Sparkles, BookOpen } from 'lucide-react';
+import { GraduationCap } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
 export default function AboutSection() {
@@ -20,14 +20,11 @@ export default function AboutSection() {
           </p>
         </div>
 
-        {/* 1. What Matters to Me (Pratham Style 3 Cards) */}
+        {/* 1. What Matters to Me */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-[#9ba4e6]"></span>
-            <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">
-              What Matters to Me
-            </h3>
-          </div>
+          <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">
+            What Matters to Me
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {portfolioData.philosophy.map((item, idx) => (
@@ -35,14 +32,9 @@ export default function AboutSection() {
                 key={idx}
                 className="p-8 sm:p-9 rounded-[2rem] bg-[#121216]/90 border border-white/[0.08] hover:border-[#9ba4e6]/40 card-lift space-y-4 shadow-lg transition-all"
               >
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono text-neutral-500 font-semibold">
-                    0{idx + 1} // Value
-                  </span>
-                  <span className="text-[10px] font-mono uppercase text-[#9ba4e6] px-2 py-0.5 rounded bg-[#9ba4e6]/10 border border-[#9ba4e6]/20">
-                    Core Principle
-                  </span>
-                </div>
+                <span className="text-xs font-mono text-[#9ba4e6] font-semibold block">
+                  0{idx + 1}.
+                </span>
                 <h4 className="text-2xl font-bold text-white tracking-tight">
                   {item.title}
                 </h4>
@@ -56,12 +48,9 @@ export default function AboutSection() {
 
         {/* 2. The Workflow Approach (01 Design, 02 Define, 03 Deliver) */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">
-              The Workflow Approach
-            </h3>
-          </div>
+          <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-300 font-semibold">
+            The Workflow Approach
+          </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {portfolioData.approach.map((step, idx) => (

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Maximize2, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { Maximize2, X } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
 
-export default function ToolkitSection({ onSelectPoster }) {
+export default function ToolkitSection() {
   const [activeLightbox, setActiveLightbox] = useState(null);
 
   const posters = portfolioData.projects.filter((p) => p.type === 'poster');
@@ -19,7 +19,7 @@ export default function ToolkitSection({ onSelectPoster }) {
     <section id="archive" className="py-24 sm:py-36 border-t border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 space-y-20">
         
-        {/* Section 5 & 6 Header from Prathamfolio: Visual Archive + Creative Toolkit */}
+        {/* Visual Archive + Creative Toolkit */}
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
@@ -35,7 +35,7 @@ export default function ToolkitSection({ onSelectPoster }) {
             </span>
           </div>
 
-          {/* Pratham-Style Toolkit Horizontal Grid with arrow_outward */}
+          {/* Toolkit Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3.5">
             {portfolioData.toolkit.map((tool, idx) => (
               <div
@@ -53,7 +53,7 @@ export default function ToolkitSection({ onSelectPoster }) {
           </div>
         </div>
 
-        {/* Poster Design Gallery Grid (Visual Archive Gallery) */}
+        {/* Poster Design Gallery Grid */}
         <div className="space-y-6 pt-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <h3 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
@@ -88,14 +88,9 @@ export default function ToolkitSection({ onSelectPoster }) {
 
                 {/* Poster Metadata */}
                 <div className="p-6 space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-mono text-[#9ba4e6] font-semibold">
-                      {poster.category}
-                    </span>
-                    <span className="text-[11px] font-mono text-neutral-500">
-                      Print & Digital
-                    </span>
-                  </div>
+                  <span className="text-[11px] font-mono text-[#9ba4e6] font-semibold block">
+                    {poster.category}
+                  </span>
 
                   <h4 className="text-lg font-bold text-white group-hover:text-[#b4bbf2] transition-colors leading-snug">
                     {poster.title}
@@ -105,15 +100,8 @@ export default function ToolkitSection({ onSelectPoster }) {
                     {poster.description}
                   </p>
 
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {poster.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-white/[0.03] text-neutral-400 border border-white/[0.03]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                  <div className="pt-2 text-[11px] font-mono text-neutral-500">
+                    {poster.tags.join(' · ')}
                   </div>
                 </div>
               </div>

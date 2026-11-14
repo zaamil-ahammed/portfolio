@@ -8,10 +8,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/[0.08] bg-[#09090b]/65 backdrop-blur-sm pt-20 pb-16 px-6 sm:px-12 relative overflow-hidden">
-      
-      {/* Massive Editorial Banner Headline (Section 11 from Prathamfolio) */}
-      <div className="max-w-7xl mx-auto space-y-20">
+    <footer className="border-t border-white/[0.08] bg-[#09090b]/65 backdrop-blur-sm pt-20 pb-14 px-6 sm:px-12 relative overflow-hidden">
+      <div className="max-w-7xl mx-auto space-y-16">
         
         <div>
           <h2 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
@@ -38,11 +36,6 @@ export default function Footer() {
             <p className="text-neutral-400 text-xs sm:text-sm leading-relaxed max-w-sm font-mono">
               "{portfolioData.personal.tagline}" — Web applications, brand identity systems, and disciplined visual designs.
             </p>
-
-            <div className="text-xs font-mono text-emerald-400 flex items-center gap-2 pt-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>Proudly Crafted in Kerala, India</span>
-            </div>
           </div>
 
           {/* Col 3: Quick Links */}
@@ -53,9 +46,9 @@ export default function Footer() {
             <div className="flex flex-col space-y-2.5 text-sm font-medium text-neutral-400">
               <a href="#home" className="hover:text-white transition-colors">Home</a>
               <a href="#services" className="hover:text-white transition-colors">What I Can Help With</a>
-              <a href="#archive" className="hover:text-white transition-colors">Visual Archive & Toolkit</a>
               <a href="#projects" className="hover:text-white transition-colors">Beyond the Visuals</a>
               <a href="#about" className="hover:text-white transition-colors">About Me</a>
+              <a href="#archive" className="hover:text-white transition-colors">Visual Archive & Toolkit</a>
               <a href="#connect" className="hover:text-white transition-colors">Let's Connect</a>
             </div>
           </div>
@@ -88,13 +81,6 @@ export default function Footer() {
             </div>
           </div>
 
-        </div>
-
-        {/* Massive Watermark Signature (Pratham Style) */}
-        <div className="pt-8 overflow-hidden select-none pointer-events-none opacity-[0.04]">
-          <span className="text-[16vw] font-black tracking-tightest whitespace-nowrap block text-white text-stroke-strong leading-none">
-            AHMED SHAMIL
-          </span>
         </div>
 
         {/* Bottom Bar */}

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { X, ExternalLink, CheckCircle, Layers, Calendar, ArrowUpRight } from 'lucide-react';
+import { X, ExternalLink, CheckCircle, Layers } from 'lucide-react';
 
 export default function ProjectDetailModal({ project, onClose }) {
   useEffect(() => {
@@ -37,8 +37,7 @@ export default function ProjectDetailModal({ project, onClose }) {
               {project.category}
             </span>
             <span className="text-xs font-mono text-neutral-500">·</span>
-            <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="text-xs font-mono text-emerald-400">
               Production
             </span>
           </div>
@@ -112,16 +111,9 @@ export default function ProjectDetailModal({ project, onClose }) {
             <h4 className="text-xs font-mono uppercase tracking-wider text-neutral-400 font-semibold mb-2.5">
               Tools & Stack
             </h4>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="text-xs font-mono px-3 py-1.5 rounded-xl bg-white/[0.04] text-neutral-300 border border-white/[0.06]"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+            <p className="text-xs font-mono text-neutral-400">
+              {project.tags.join(' · ')}
+            </p>
           </div>
         </div>
 

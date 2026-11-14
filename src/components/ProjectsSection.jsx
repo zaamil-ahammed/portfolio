@@ -24,7 +24,7 @@ export default function ProjectsSection({ onSelectProject }) {
     <section id="projects" className="py-24 sm:py-36 border-t border-white/[0.08] relative">
       <div className="max-w-7xl mx-auto px-6 sm:px-12 space-y-16">
         
-        {/* Section Header (Pratham Style: "Beyond the Visuals") */}
+        {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6">
           <div>
             <span className="text-xs font-mono uppercase tracking-[0.2em] text-[#9ba4e6] block mb-3 font-semibold">
@@ -35,7 +35,7 @@ export default function ProjectsSection({ onSelectProject }) {
             </h2>
           </div>
 
-          {/* Nested Tabs from Prathamfolio */}
+          {/* Filter Tabs */}
           <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-[#121216] border border-white/10 self-start sm:self-auto">
             {[
               { id: 'all', label: 'All Projects' },
@@ -70,12 +70,11 @@ export default function ProjectsSection({ onSelectProject }) {
                   className="p-8 sm:p-10 rounded-[2.2rem] bg-[#121216]/90 border border-white/[0.08] hover:border-[#9ba4e6]/50 transition-all duration-300 card-lift flex flex-col justify-between group shadow-lg"
                 >
                   <div className="space-y-6">
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-mono px-3 py-1 rounded-full bg-[#9ba4e6]/10 border border-[#9ba4e6]/25 text-[#b4bbf2]">
+                    <div className="flex items-center justify-between text-xs font-mono">
+                      <span className="text-[#b4bbf2]">
                         {project.category}
                       </span>
-                      <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                      <span className="text-emerald-400">
                         Live on Vercel
                       </span>
                     </div>
@@ -89,15 +88,8 @@ export default function ProjectsSection({ onSelectProject }) {
                       </p>
                     </div>
 
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {project.tags.map((tag, idx) => (
-                        <span
-                          key={idx}
-                          className="text-xs font-mono px-3 py-1 rounded-lg bg-white/[0.04] text-neutral-300 border border-white/[0.05]"
-                        >
-                          {tag}
-                        </span>
-                      ))}
+                    <div className="text-xs font-mono text-neutral-500 pt-1">
+                      {project.tags.join(' · ')}
                     </div>
                   </div>
 
@@ -125,7 +117,7 @@ export default function ProjectsSection({ onSelectProject }) {
             </div>
           )}
 
-          {/* Social Carousel Card (Pratham Style Multi-Slide Viewer) */}
+          {/* Social Carousel Card */}
           {(activeTab === 'all' || activeTab === 'carousels') && carouselProject && (
             <div className="p-8 sm:p-10 rounded-[2.2rem] bg-[#121216]/90 border border-white/[0.08] grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-lg">
               
@@ -177,15 +169,8 @@ export default function ProjectsSection({ onSelectProject }) {
                   {carouselProject.description} Designed with continuous horizontal layout flow, clear typographic eye-paths, and deliberate negative space to maintain high audience retention across social platforms.
                 </p>
 
-                <div className="flex flex-wrap gap-2 pt-2">
-                  {carouselProject.tags.map((tag, idx) => (
-                    <span
-                      key={idx}
-                      className="text-xs font-mono px-3 py-1 rounded-lg bg-white/[0.04] text-neutral-300 border border-white/[0.05]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+                <div className="text-xs font-mono text-neutral-500 pt-1">
+                  {carouselProject.tags.join(' · ')}
                 </div>
 
                 <div className="pt-4 flex flex-wrap items-center gap-4">
