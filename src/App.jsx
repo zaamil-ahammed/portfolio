@@ -4,6 +4,7 @@ import { ArrowDown } from 'lucide-react';
 import ParticleText from './components/ParticleText';
 import DirectionAwareSelection from './components/DirectionAwareSelection';
 import TextPressure from './components/TextPressure';
+import FeyCards from './components/FeyCards';
 import ContactPage from './pages/ContactPage';
 import DesignPortfolioPage from './pages/DesignPortfolioPage';
 import WebsitePortfolioPage from './pages/WebsitePortfolioPage';
@@ -49,26 +50,41 @@ function HomeExperience() {
     };
   }, []);
 
-  // Stage 1 (0.0 -> 0.34): First animation — AHMED SHAMIL ParticleText
-  const firstOpacity = clamp01(1 - scrollProgress / 0.34);
-  const firstTranslateY = -scrollProgress * 65;
+  // Stage 1 (0.00 -> 0.24): AHMED SHAMIL — ParticleText
+  const firstOpacity = clamp01(1 - scrollProgress / 0.24);
+  const firstTranslateY = -scrollProgress * 75;
 
-  // Stage 2 (0.18 -> 0.5 -> 0.82): DirectionAwareSelection before second animation starts
-  const selectionIn = clamp01((scrollProgress - 0.18) / 0.2);
-  const selectionOut = clamp01((scrollProgress - 0.62) / 0.2);
+  // Stage 2 (0.14 -> 0.34 -> 0.56): DirectionAwareSelection + TrueFocus
+  const selectionIn = clamp01((scrollProgress - 0.14) / 0.14);
+  const selectionOut = clamp01((scrollProgress - 0.44) / 0.14);
   const selectionOpacity = selectionIn * (1 - selectionOut);
   const selectionTranslateY = (1 - selectionIn) * 32 - selectionOut * 32;
 
-  // Stage 3 (0.66 -> 1.0): Second animation after scroll — PORTFOLIO TextPressure
-  const secondOpacity = clamp01((scrollProgress - 0.66) / 0.26);
-  const secondTranslateY = (1 - clamp01((scrollProgress - 0.66) / 0.34)) * 36;
+  // Stage 3 (0.48 -> 0.67 -> 0.86): PORTFOLIO — TextPressure
+  const pressureIn = clamp01((scrollProgress - 0.48) / 0.14);
+  const pressureOut = clamp01((scrollProgress - 0.74) / 0.14);
+  const pressureOpacity = pressureIn * (1 - pressureOut);
+  const pressureTranslateY = (1 - pressureIn) * 32 - pressureOut * 32;
 
-  const activeStage = scrollProgress < 0.28 ? 1 : scrollProgress < 0.72 ? 2 : 3;
-  const scrollHintOpacity = clamp01(1 - scrollProgress * 8);
-  const stageTwoHintOpacity = selectionOpacity * clamp01(1 - (scrollProgress - 0.5) * 4);
+  // Stage 4 (0.78 -> 1.00): Projects Showcase — FeyCards
+  const projectsIn = clamp01((scrollProgress - 0.78) / 0.18);
+  const projectsTranslateY = (1 - clamp01((scrollProgress - 0.78) / 0.22)) * 32;
+
+  const activeStage =
+    scrollProgress < 0.2
+      ? 1
+      : scrollProgress < 0.52
+        ? 2
+        : scrollProgress < 0.82
+          ? 3
+          : 4;
+
+  const scrollHintOpacity = clamp01(1 - scrollProgress * 10);
+  const stageTwoHintOpacity = selectionOpacity * clamp01(1 - (scrollProgress - 0.34) * 5);
+  const stageThreeHintOpacity = pressureOpacity * clamp01(1 - (scrollProgress - 0.67) * 5);
 
   return (
-    <div className="relative min-h-[300vh] w-full bg-[#09090b] text-[#fafafa] font-sans antialiased selection:bg-[#9ba4e6]/30 selection:text-[#b4bbf2]">
+    <div className="relative min-h-[400vh] w-full bg-[#09090b] text-[#fafafa] font-sans antialiased selection:bg-[#9ba4e6]/30 selection:text-[#b4bbf2]">
       <div className="sticky top-0 h-screen w-full overflow-hidden">
 
         {/* Layer 1: AHMED SHAMIL — ParticleText */}
@@ -106,7 +122,7 @@ function HomeExperience() {
           />
         </div>
 
-        {/* Layer 2: Direction Aware Selection (before second animation starts) */}
+        {/* Layer 2: Direction Aware Selection + TrueFocus */}
         <div
           className={`absolute inset-0 w-full h-full flex items-center justify-center px-6 sm:px-12 will-change-transform ${
             activeStage === 2 ? 'pointer-events-auto' : 'pointer-events-none'
@@ -119,14 +135,14 @@ function HomeExperience() {
           <DirectionAwareSelection />
         </div>
 
-        {/* Layer 3: PORTFOLIO — TextPressure (second animation after scroll) */}
+        {/* Layer 3: PORTFOLIO — TextPressure */}
         <div
           className={`absolute inset-0 w-full h-full flex items-center justify-center px-6 sm:px-12 will-change-transform ${
             activeStage === 3 ? 'pointer-events-auto' : 'pointer-events-none'
           }`}
           style={{
-            opacity: secondOpacity,
-            transform: `translate3d(0, ${secondTranslateY}vh, 0)`,
+            opacity: pressureOpacity,
+            transform: `translate3d(0, ${pressureTranslateY}vh, 0)`,
           }}
         >
           <div className="w-full max-w-6xl h-[200px] sm:h-[300px]">
@@ -151,16 +167,35 @@ function HomeExperience() {
           </div>
         </div>
 
+        {/* Layer 4: Projects — FeyCards */}
+        <div
+          className={`absolute inset-0 w-full h-full will-change-transform ${
+            activeStage === 4 ? 'pointer-events-auto' : 'pointer-events-none'
+          }`}
+          style={{
+            opacity: projectsIn,
+            transform: `translate3d(0, ${projectsTranslateY}vh, 0)`,
+          }}
+        >
+          <FeyCards
+            isVisible={activeStage === 4}
+            spring={{ type: 'spring', visualDuration: 0.5, bounce: 0.2 }}
+            shiftDistance={60}
+            swapDuration={0.5}
+            entranceStagger={0.2}
+          />
+        </div>
+
         {/* Scroll Cue on Stage 1 */}
         <button
           type="button"
           onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
           style={{
             opacity: scrollHintOpacity,
             pointerEvents: scrollHintOpacity > 0.05 ? 'auto' : 'none',
           }}
-          aria-label="Scroll down to view direction-aware selection"
+          aria-label="Scroll down to introduction"
         >
           <span>Scroll</span>
           <ArrowDown className="w-4 h-4 animate-bounce" />
@@ -170,14 +205,29 @@ function HomeExperience() {
         <button
           type="button"
           onClick={() => window.scrollTo({ top: window.innerHeight * 2, behavior: 'smooth' })}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
           style={{
             opacity: activeStage === 2 ? stageTwoHintOpacity : 0,
             pointerEvents: activeStage === 2 && stageTwoHintOpacity > 0.05 ? 'auto' : 'none',
           }}
-          aria-label="Scroll down to view portfolio text pressure animation"
+          aria-label="Scroll down to portfolio"
         >
           <span>Continue</span>
+          <ArrowDown className="w-4 h-4 animate-bounce" />
+        </button>
+
+        {/* Scroll Cue on Stage 3 */}
+        <button
+          type="button"
+          onClick={() => window.scrollTo({ top: window.innerHeight * 3, behavior: 'smooth' })}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center gap-2 text-xs font-mono tracking-widest uppercase text-neutral-400 hover:text-white transition-colors"
+          style={{
+            opacity: activeStage === 3 ? stageThreeHintOpacity : 0,
+            pointerEvents: activeStage === 3 && stageThreeHintOpacity > 0.05 ? 'auto' : 'none',
+          }}
+          aria-label="Scroll down to projects"
+        >
+          <span>Projects</span>
           <ArrowDown className="w-4 h-4 animate-bounce" />
         </button>
 

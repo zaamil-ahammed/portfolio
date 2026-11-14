@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { portfolioData } from '../data/portfolioData';
+import FeyCards from '../components/FeyCards';
 
 export default function DesignPortfolioPage() {
   const designProjects = portfolioData.projects.filter(
@@ -39,6 +40,16 @@ export default function DesignPortfolioPage() {
           </span>
         </div>
 
+        <div className="rounded-2xl border border-white/10 overflow-hidden">
+          <FeyCards
+            spring={{ type: 'spring', visualDuration: 0.5, bounce: 0.2 }}
+            shiftDistance={60}
+            swapDuration={0.5}
+            entranceStagger={0.2}
+            className="h-[34rem]"
+          />
+        </div>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {designProjects.map((project) => {
             const previewImage = project.slides ? project.slides[0] : project.image;
@@ -49,12 +60,12 @@ export default function DesignPortfolioPage() {
                 onClick={() => openProject(project)}
                 className="group text-left rounded-2xl border border-white/10 bg-[#121216] overflow-hidden transition-all duration-300 hover:border-[#9ba4e6]/50 hover:-translate-y-1 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#9ba4e6]"
               >
-                <div className="aspect-[4/5] w-full overflow-hidden bg-zinc-900">
+                <div className="aspect-[4/5] w-full overflow-hidden bg-[#09090b] flex items-center justify-center p-2">
                   {previewImage && (
                     <img
                       src={previewImage}
                       alt={project.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
                       loading="lazy"
                     />
                   )}
@@ -90,7 +101,7 @@ export default function DesignPortfolioPage() {
           onClick={() => setSelectedProject(null)}
         >
           <div
-            className="relative w-full max-w-3xl rounded-2xl border border-white/10 bg-[#121216] p-5 sm:p-6 space-y-4"
+            className="relative w-full max-w-4xl rounded-2xl border border-white/10 bg-[#121216] p-5 sm:p-6 space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start justify-between gap-4">
@@ -112,7 +123,7 @@ export default function DesignPortfolioPage() {
               </button>
             </div>
 
-            <div className="relative flex items-center justify-center rounded-xl bg-[#09090b] overflow-hidden max-h-[65vh]">
+            <div className="relative flex items-center justify-center rounded-xl bg-[#09090b] overflow-hidden max-h-[78vh]">
               <img
                 src={
                   selectedProject.slides
@@ -120,7 +131,7 @@ export default function DesignPortfolioPage() {
                     : selectedProject.image
                 }
                 alt={selectedProject.title}
-                className="max-h-[65vh] w-auto object-contain"
+                className="max-h-[78vh] max-w-full w-auto h-auto object-contain"
               />
 
               {selectedProject.slides && selectedProject.slides.length > 1 && (
